@@ -1,23 +1,8 @@
-[build]
-phases.setup.dependsOn = ["setupPhp"]
+[phases.setup]
+nixPkgs = ["php83", "php83Extensions.pdo", "php83Extensions.pdo_mysql", "php83Extensions.mbstring", "php83Extensions.tokenizer", "php83Extensions.xml", "php83Extensions.ctype", "php83Extensions.fileinfo", "php83Extensions.openssl", "composer"]
 
-[[providers]]
-name = "php"
-
-[[providers]]
-name = "composer"
-
-[[providers]]
-name = "nodejs"
+[phases.build]
+cmds = ["composer install --no-dev --optimize-autoloader", "php artisan config:cache", "php artisan route:cache", "php artisan view:cache"]
 
 [start]
-runImage = "php:8.2-apache"
-baseImage = "ubuntu:jammy"
-
-[[start.processes]]
-name = "web"
-cmd = "vendor/bin/heroku-php-apache2 public/"
-
-[[start.processes]]
-name = "worker"
-cmd = "php artisan queue:work database --timeout=30 --tries=3"
+cmd = "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
