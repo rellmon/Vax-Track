@@ -104,3 +104,4 @@ vacctrack/
 - **SMS** integration with [PhilSMS](https://philsms.com/) is configured. Messages are logged in the `sms_logs` table and displayed in the Schedules page.
 - **Payments** are cash-only per clinic requirements.
 - To reset demo data: `php artisan migrate:fresh --seed`
+ 
