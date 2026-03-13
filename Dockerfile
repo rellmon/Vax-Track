@@ -61,9 +61,5 @@ RUN chown -R www-data:www-data /app
 
 EXPOSE 8080
 
-# Health check
-HEALTHCHECK --interval=10s --timeout=3s --start-period=30s --retries=3 \
-    CMD php -r "echo 'OK';" || exit 1
-
-# Start the application - use PORT environment variable or default to 8080
-CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
+# Start: clear config, attempt migrate, then always start server
+CMD ["sh", "-c", "php artisan config:clear && php artisan migrate --force --no-interaction; php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
