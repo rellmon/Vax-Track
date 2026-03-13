@@ -21,6 +21,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy application code
 WORKDIR /app
+ARG CACHEBUST=4
+RUN echo "Cache bust: $CACHEBUST"
 COPY . .
 
 # Install PHP dependencies
