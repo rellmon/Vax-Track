@@ -1,0 +1,51 @@
+# Laravel
+/vendor
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/bootstrap/cache
+.env
+.env.backup
+.env.production.local
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# Local development
+.env.local
+.env.*.local
+
+# Composer lock (optional - uncomment if you want to commit it)
+# composer.lock
+
+# NPM lock (optional)
+# package-lock.json
+# yarn.lock
+
+# Testing
+.phpunit.result.cache
+coverage/
+
+# Logs
+storage/logs/*.log
+storage/logs/laravel.log
+
+# Temporary files
+*.tmp
+*.temp

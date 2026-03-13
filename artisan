@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+define('LARAVEL_START', microtime(true));
+
+// Register the Composer autoloader...
+require __DIR__.'/vendor/autoload.php';
+
+// Bootstrap the application...
+$app = require_once __DIR__.'/bootstrap/app.php';
+
+// Run the application...
+exit($app['Illuminate\Contracts\Console\Kernel']->handle(
+    $input = new Symfony\Component\Console\Input\ArgvInput,
+    new Symfony\Component\Console\Output\ConsoleOutput
+));
