@@ -6,8 +6,7 @@ cmds = [
   "mkdir -p /app/storage/framework/sessions",
   "mkdir -p /app/storage/framework/views",
   "chmod -R 775 /app/bootstrap/cache",
-  "chmod -R 775 /app/storage",
-  "docker-php-ext-install pdo_mysql mysqli 2>/dev/null || echo 'Checking for MySQL support...'"
+  "chmod -R 775 /app/storage"
 ]
 
 [phases.install]
