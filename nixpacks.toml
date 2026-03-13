@@ -1,0 +1,23 @@
+[build]
+phases.setup.dependsOn = ["setupPhp"]
+
+[[providers]]
+name = "php"
+
+[[providers]]
+name = "composer"
+
+[[providers]]
+name = "nodejs"
+
+[start]
+runImage = "php:8.2-apache"
+baseImage = "ubuntu:jammy"
+
+[[start.processes]]
+name = "web"
+cmd = "vendor/bin/heroku-php-apache2 public/"
+
+[[start.processes]]
+name = "worker"
+cmd = "php artisan queue:work database --timeout=30 --tries=3"
