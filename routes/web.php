@@ -1,5 +1,9 @@
 <?php
 
+Route::get('/api/health', function () {
+    return response()->json(['status' => 'ok']);
+});
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\VaccineController;
