@@ -70,5 +70,9 @@ RUN chown -R www-data:www-data /app
 
 EXPOSE 8080
 
-# Start: clear config, attempt migrate, then always start server
-CMD ["sh", "-c", "php artisan config:clear && php artisan migrate --force --no-interaction; php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
+# Health check for Docker - waits 5 seconds before first check to allow app startup
+HEALTHCHECK --interval=10s --timeout=5s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8080/api/health || exit 1
+
+# Start: clear config, migrate then start server
+CMD ["sh", "-c", "php artisan config:clear && php artisan migrate --force --no-interaction && exec php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
