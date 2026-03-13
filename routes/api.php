@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\HealthCheckController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ use App\Http\Controllers\Api\ApiController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+// Health check endpoint (no auth required)
+Route::get('/health', [HealthCheckController::class, 'check']);
 
 // Public API routes (no authentication required)
 Route::middleware('throttle:60,1')->group(function () {
