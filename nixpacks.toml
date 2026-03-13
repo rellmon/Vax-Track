@@ -26,5 +26,5 @@ cmds = [
 
 # Start the PHP application with sequential migration and serve
 [start]
-cmd = "php artisan migrate --force --quiet && php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
 runImage = "php:8.3-cli"
