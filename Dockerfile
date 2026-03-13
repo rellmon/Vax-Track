@@ -24,6 +24,9 @@ WORKDIR /app
 COPY . .
 
 # Install PHP dependencies
+RUN mkdir -p /app/bootstrap/cache /app/storage/logs /app/storage/framework/cache /app/storage/framework/sessions /app/storage/framework/views
+
+
 RUN composer install --ignore-platform-reqs --no-interaction
 
 # Build stage - prepare for production
