@@ -1,29 +1,19 @@
 [phases.setup]
-cmds = [
-  "mkdir -p /app/bootstrap/cache",
-  "mkdir -p /app/storage/logs",
-  "mkdir -p /app/storage/framework/cache",
-  "mkdir -p /app/storage/framework/sessions",
-  "mkdir -p /app/storage/framework/views",
-  "chmod -R 775 /app/bootstrap/cache",
-  "chmod -R 775 /app/storage"
-]
-
-[phases.install]
-cmds = [
-  "mkdir -p /var/log/nginx && mkdir -p /var/cache/nginx",
-  "composer install --ignore-platform-reqs"
+nixPkgs = [
+  "php82",
+  "php82Extensions.pdo",
+  "php82Extensions.pdo_sqlite",
+  "php82Extensions.pdo_mysql",
+  "php82Extensions.mbstring",
+  "php82Extensions.tokenizer",
+  "php82Extensions.xml",
+  "php82Extensions.ctype",
+  "php82Extensions.fileinfo",
+  "composer"
 ]
 
 [phases.build]
-cmds = [
-  "rm -f .env",
-  "docker-php-ext-install pdo_mysql",
-  "composer install --no-dev --optimize-autoloader",
-  "php artisan route:cache",
-  "php artisan view:cache"
-]
+cmds = ["composer install --no-dev --optimize-autoloader"]
 
-# Start the PHP application with sequential migration and serve
 [start]
-cmd = "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "php artisan config:clear && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"
