@@ -1,7 +1,7 @@
 # Build stage
 FROM php:8.3-cli AS builder
 
-ARG CACHEBUST=1
+ARG CACHEBUST=2
 
 # Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
@@ -35,7 +35,7 @@ RUN rm -f .env && \
 # Runtime stage
 FROM php:8.3-cli
 
-ARG CACHEBUST=1
+ARG CACHEBUST=2
 
 # Install only runtime dependencies and extensions
 RUN apt-get update && apt-get install -y \
