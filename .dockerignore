@@ -1,0 +1,15 @@
+.env
+.env.local
+.env.*.local
+node_modules
+npm-debug.log
+yarn-error.log
+.git
+.gitignore
+.DS_Store
+*.log
+storage/logs
+bootstrap/cache
+vendor
+.idea
+.vscode
