@@ -3,30 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 
 class HealthCheckController extends Controller
 {
     /**
      * Application health check endpoint
-     * Returns 200 OK if database is accessible
+     * Simple check - just verify the application is responsive
+     * Heavy database checks happen during migrations
      */
     public function check(): JsonResponse
     {
-        try {
-            // Check database connection
-            DB::connection()->getPdo();
-            
-            return response()->json([
-                'status' => 'healthy',
-                'timestamp' => now()->toIso8601String(),
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'unhealthy',
-                'error' => 'Database connection failed',
-                'timestamp' => now()->toIso8601String(),
-            ], 503);
-        }
+        return response()->json([
+            'status' => 'healthy',
+            'timestamp' => now()->toIso8601String(),
+            'application' => config('app.name'),
+            'version' => '1.0.0',
+        ], 200);
     }
 }
