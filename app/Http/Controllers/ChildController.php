@@ -95,11 +95,12 @@ class ChildController extends Controller
             ]);
             
             // Create completed schedule
+            $appointmentTime = $request->vaccine_time ? $request->vaccine_time . ':00' : '10:00:00';
             $schedule = Schedule::create([
                 'child_id'         => $child->id,
                 'vaccine_id'       => $request->vaccine_id,
                 'appointment_date' => $vaccineDate,
-                'appointment_time' => '10:00 AM',
+                'appointment_time' => $appointmentTime,
                 'status'           => 'Completed',
                 'notes'            => $request->vaccine_notes,
                 'sms_sent'         => false,
@@ -166,11 +167,12 @@ class ChildController extends Controller
             ]);
             
             // Create completed schedule
+            $appointmentTime = $request->vaccine_time ? $request->vaccine_time . ':00' : '10:00:00';
             $schedule = Schedule::create([
                 'child_id'         => $child->id,
                 'vaccine_id'       => $request->vaccine_id,
                 'appointment_date' => $vaccineDate,
-                'appointment_time' => '10:00 AM',
+                'appointment_time' => $appointmentTime,
                 'status'           => 'Completed',
                 'notes'            => $request->vaccine_notes,
                 'sms_sent'         => false,
