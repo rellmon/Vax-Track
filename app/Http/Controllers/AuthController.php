@@ -30,10 +30,21 @@ class AuthController extends Controller
         if ($request->role === 'doctor') {
             $user = User::where('username', $request->username)->first();
             if ($user && Hash::check($request->password, $user->password)) {
+                // Check if account is active
+                if (!$user->active) {
+                    return back()->withErrors(['login' => 'Your account has been deactivated. Contact an administrator.'])->withInput();
+                }
+                
                 Session::put('doctor_id', $user->id);
                 Session::put('doctor_name', $user->name);
                 Session::put('session_ip', $request->ip());
                 Session::put('last_activity', now());
+                
+                // Redirect to admin portal if user has Admin role
+                if ($user->role === 'Admin') {
+                    return redirect()->route('admin.dashboard');
+                }
+                
                 return redirect()->route('doctor.dashboard');
             }
             return back()->withErrors(['login' => 'Invalid credentials.'])->withInput();

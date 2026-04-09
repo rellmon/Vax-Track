@@ -9,7 +9,9 @@ class Child extends Model {
     use SoftDeletes, Auditable;
     
     protected $fillable = ['first_name','last_name','dob','gender','blood_type','address','notes','parent_id'];
-    protected $dates = ['deleted_at'];
+    protected $casts    = [
+        'dob' => 'datetime',
+    ];
 
     public function parent()         { return $this->belongsTo(ParentGuardian::class, 'parent_id'); }
     public function schedules()      { return $this->hasMany(Schedule::class); }

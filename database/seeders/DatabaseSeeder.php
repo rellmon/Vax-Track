@@ -15,13 +15,13 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Doctor account
+        // Admin account
         User::create([
             'name'     => 'Dr. Admin',
             'username' => 'admin',
             'email'    => 'admin@vacctrack.ph',
             'password' => Hash::make('admin'),
-            'role'     => 'doctor',
+            'role'     => 'Admin',
         ]);
 
         // Demo doctor account

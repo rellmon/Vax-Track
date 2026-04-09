@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'auth.doctor' => \App\Http\Middleware\DoctorAuth::class,
             'auth.parent' => \App\Http\Middleware\ParentAuth::class,
+            'admin.auth' => \App\Http\Middleware\AdminAuth::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

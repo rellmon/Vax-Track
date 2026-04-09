@@ -8,8 +8,10 @@ class Payment extends Model {
     use SoftDeletes, Auditable;
     
     protected $fillable = ['child_id','schedule_id','amount','method','status','payment_date','notes'];
-    protected $casts    = ['amount' => 'float'];
-    protected $dates = ['deleted_at'];
+    protected $casts    = [
+        'amount' => 'float',
+        'payment_date' => 'datetime',
+    ];
     
     public function child()    { return $this->belongsTo(Child::class); }
     public function schedule() { return $this->belongsTo(Schedule::class); }

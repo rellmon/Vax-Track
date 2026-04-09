@@ -8,8 +8,10 @@ class Schedule extends Model {
     use SoftDeletes, Auditable;
     
     protected $fillable = ['child_id','vaccine_id','appointment_date','appointment_time','status','notes','sms_sent'];
-    protected $casts    = ['sms_sent' => 'boolean'];
-    protected $dates = ['deleted_at'];
+    protected $casts    = [
+        'sms_sent' => 'boolean',
+        'appointment_date' => 'datetime',
+    ];
 
     public function child()   { return $this->belongsTo(Child::class); }
     public function vaccine() { return $this->belongsTo(Vaccine::class); }
