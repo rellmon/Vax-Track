@@ -128,8 +128,8 @@ class SendSmsJob implements ShouldQueue
             'response_data' => $responseData,
         ]);
 
-        // PhilSMS may return 200 or a JSON status of "success"
-        $isSuccess = is_array($responseData) && ($responseData['status'] === 'success' || $response->successful());
+        // PhilSMS returns API status in JSON, check that first (not just HTTP status)
+        $isSuccess = is_array($responseData) && ($responseData['status'] ?? null) === 'success';
 
         if ($isSuccess) {
             $this->updateLog('sent', null, $responseData);
