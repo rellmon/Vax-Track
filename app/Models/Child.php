@@ -8,9 +8,10 @@ use Carbon\Carbon;
 class Child extends Model {
     use SoftDeletes, Auditable;
     
-    protected $fillable = ['first_name','last_name','dob','gender','blood_type','address','notes','parent_id'];
+    protected $fillable = ['first_name','last_name','dob','gender','blood_type','address','notes','parent_id','approved_at'];
     protected $casts    = [
         'dob' => 'datetime',
+        'approved_at' => 'datetime',
     ];
 
     public function parent()         { return $this->belongsTo(ParentGuardian::class, 'parent_id'); }
