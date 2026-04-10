@@ -16,8 +16,11 @@ class ForceHttpsMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         // Force HTTPS in production environments
-        if (config('app.env') === 'production' && !$request->secure()) {
-            return redirect()->secure($request->getRequestUri());
+        // Check X-Forwarded-Proto header for proxied requests (Railway, Heroku, etc.)
+        if (config('app.env') === 'production') {
+            if (!$request->secure() && $request->header('X-Forwarded-Proto') !== 'https') {
+                return redirect()->secure($request->getRequestUri());
+            }
         }
 
         return $next($request);
