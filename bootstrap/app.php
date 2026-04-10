@@ -11,6 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->web(append: [
+            \App\Http\Middleware\ForceHttpsMiddleware::class,
+        ]);
+
         $middleware->alias([
             'auth.doctor' => \App\Http\Middleware\DoctorAuth::class,
             'auth.parent' => \App\Http\Middleware\ParentAuth::class,
