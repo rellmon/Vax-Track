@@ -1747,6 +1747,72 @@ textarea.form-control { resize: vertical; min-height: 94px; }
 
 
 /* ═══════════════════════════════════════════════════════════
+   20c. RESPONSIVE GRIDS — stats-grid, section-grid adapt to screen
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Stats grid: 4 col → 2 col on tablet */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 13px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Section grids: adapt to single column */
+  .section-grid,
+  .section-grid-main,
+  .section-grid-3 {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Info grid: 2 col → 1 col on phone */
+  .info-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Stat card: ensure proper spacing */
+  .stat-card {
+    padding: 18px !important;
+    gap: 14px !important;
+  }
+
+  .stat-value {
+    font-size: 28px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   20d. SMALL PHONE (max-width: 480px) — single column throughout
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .stat-card {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .stat-icon {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .stat-value {
+    font-size: 24px !important;
+  }
+
+  .pay-stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
    21. TYPOGRAPHY — scale down headings
    ═══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {

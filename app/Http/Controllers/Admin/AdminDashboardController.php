@@ -93,6 +93,13 @@ class AdminDashboardController extends Controller
             ->limit(5)
             ->get();
 
+        // Payment Statistics
+        $stats = [
+            'total_revenue' => Payment::where('status', 'Paid')->sum('amount'),
+            'unpaid_amount' => Payment::where('status', 'Unpaid')->sum('amount'),
+            'refunded_amount' => Payment::where('status', 'Refunded')->sum('amount'),
+        ];
+
         return view('admin.dashboard', compact(
             'totalChildren',
             'activeStaff',
@@ -100,6 +107,7 @@ class AdminDashboardController extends Controller
             'vaccinesCoveragePercent',
             'monthlyRevenue',
             'pendingPaymentsAmount',
+            'stats',
             'todaySummary',
             'lowStockVaccines',
             'overdueVaccinations',
