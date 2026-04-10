@@ -107,7 +107,7 @@
 <div class="sidebar-section-label">Monitoring</div>
 
 {{-- Audit Logs --}}
-<a href="{{ route('admin.audit-logs.index') }}"
+<a href="{{ route('admin.audit-logs') }}"
    class="nav-item {{ str_starts_with($cur, 'admin.audit-logs') ? 'active' : '' }}">
   <span class="icon">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
