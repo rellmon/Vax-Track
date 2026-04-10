@@ -195,24 +195,208 @@
             font-weight: 600;
         }
 
-        @media (max-width: 768px) {
+        /* ══ MOBILE MENU TOGGLE ══════════════════════ */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #2f3e46;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        /* ══ RESPONSIVE BREAKPOINTS ═════════════════ */
+        @media (max-width: 992px) {
             .admin-sidebar {
-                width: 100%;
-                height: auto;
+                width: 220px;
+            }
+            
+            .admin-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
             }
 
             .admin-wrapper {
                 flex-direction: column;
             }
 
+            .admin-sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 260px;
+                height: 100vh;
+                z-index: 1000;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .admin-sidebar.active {
+                transform: translateX(0);
+                box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+            }
+
+            .admin-main {
+                width: 100%;
+            }
+
+            .admin-topbar {
+                padding: 12px 15px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .admin-topbar-title {
+                font-size: 1.2rem;
+                order: 2;
+                flex: 1 1 100%;
+            }
+
             .admin-content {
                 padding: 15px;
+            }
+
+            /* Sidebar overlay */
+            .admin-sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+            }
+
+            .admin-sidebar-overlay.active {
+                display: block;
+            }
+
+            /* Ensure content doesn't get pushed when sidebar is open */
+            body.sidebar-open {
+                overflow: hidden;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .admin-sidebar {
+                width: 240px;
+            }
+
+            .admin-topbar {
+                padding: 10px 12px;
+            }
+
+            .admin-topbar-title {
+                font-size: 1rem;
+            }
+
+            .admin-content {
+                padding: 12px;
+            }
+
+            .stat-card {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .stat-card h6 {
+                font-size: 0.75rem;
+            }
+
+            .stat-card .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .table {
+                font-size: 0.85rem;
+            }
+
+            .table thead th {
+                font-size: 0.75rem;
+                padding: 8px 4px;
+            }
+
+            .table td {
+                padding: 8px 4px;
+            }
+
+            .btn {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-sidebar {
+                width: 100%;
+            }
+
+            .admin-topbar-title {
+                font-size: 0.95rem;
+            }
+
+            .stat-card h6 {
+                font-size: 0.7rem;
+                margin-bottom: 5px;
+            }
+
+            .stat-card .stat-value {
+                font-size: 1.25rem;
+            }
+
+            .badge {
+                padding: 4px 8px;
+                font-size: 0.7rem;
             }
         }
     </style>
     @yield('css')
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.querySelector('.admin-sidebar');
+            const overlay = document.querySelector('.admin-sidebar-overlay');
+            const body = document.body;
+
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('active');
+                    overlay.classList.toggle('active');
+                    body.classList.toggle('sidebar-open');
+                });
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    body.classList.remove('sidebar-open');
+                });
+            }
+
+            // Close sidebar when a nav link is clicked
+            const navLinks = document.querySelectorAll('.admin-sidebar .nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    body.classList.remove('sidebar-open');
+                });
+            });
+        });
+    </script>
 </head>
 <body>
+    <div class="admin-sidebar-overlay"></div>
     <div class="admin-wrapper">
         <!-- Sidebar -->
         <nav class="admin-sidebar">
@@ -294,6 +478,9 @@
         <div class="admin-main">
             <!-- Top Bar -->
             <div class="admin-topbar">
+                <button id="sidebarToggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <i class="bi bi-list"></i>
+                </button>
                 <div class="admin-topbar-title">@yield('page-title', 'Dashboard')</div>
                 <div>
                     <span class="me-3">Welcome, {{ session('doctor_name', 'User') }}</span>

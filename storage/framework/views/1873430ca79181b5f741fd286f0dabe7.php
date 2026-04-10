@@ -7,63 +7,63 @@
 <div class="container-fluid">
     <!-- KPIs 3x3 Grid -->
     <div class="row mb-4">
-        <div class="col-md-4 col-lg-4">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
             <div class="stat-card">
                 <h6>Total Children</h6>
                 <div class="stat-value"><?php echo e($totalChildren); ?></div>
                 <small class="text-muted">Registered</small>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
             <div class="stat-card success">
                 <h6>Vaccination Coverage</h6>
                 <div class="stat-value"><?php echo e($vaccinesCoveragePercent); ?>%</div>
                 <small class="text-muted">Overall coverage</small>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
             <div class="stat-card info">
                 <h6>Upcoming Appointments</h6>
                 <div class="stat-value"><?php echo e($upcomingAppointments); ?></div>
                 <small class="text-muted">Next 7 days</small>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
             <div class="stat-card">
                 <h6>Active Staff</h6>
                 <div class="stat-value"><?php echo e($activeStaff); ?></div>
                 <small class="text-muted">Available</small>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
             <div class="stat-card success">
                 <h6>Monthly Revenue</h6>
                 <div class="stat-value">₱<?php echo e(number_format($monthlyRevenue, 2)); ?></div>
                 <small class="text-muted">This month</small>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
             <div class="stat-card warning">
                 <h6>Pending Payments</h6>
                 <div class="stat-value">₱<?php echo e(number_format($pendingPaymentsAmount, 2)); ?></div>
                 <small class="text-muted">Awaiting payment</small>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
             <div class="stat-card">
                 <h6>Today's Appointments</h6>
                 <div class="stat-value"><?php echo e($todaySummary['appointments']); ?></div>
                 <small class="text-muted">Scheduled</small>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
             <div class="stat-card success">
                 <h6>Completed Today</h6>
                 <div class="stat-value"><?php echo e($todaySummary['completed_appointments']); ?></div>
                 <small class="text-muted">Appointments</small>
             </div>
         </div>
-        <div class="col-md-4 col-lg-4">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
             <div class="stat-card">
                 <h6>New Registrations</h6>
                 <div class="stat-value"><?php echo e($todaySummary['new_registrations']); ?></div>
@@ -76,7 +76,7 @@
     <div class="row mb-4">
         <!-- Low Stock Alerts -->
         <?php if($lowStockVaccines->count() > 0): ?>
-            <div class="col-md-4">
+            <div class="col-12 col-md-6 col-lg-4">
                 <div class="card" style="background: white; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border-left: 4px solid #ea580c;">
                     <div class="card-header" style="background: #fef3c7; border-bottom: 2px solid #fed7aa; padding: 15px;">
                         <h6 class="mb-0" style="font-weight: 700; color: #b45309; font-size: 0.9rem;">
@@ -101,7 +101,7 @@
 
         <!-- Overdue Vaccinations -->
         <?php if($overdueVaccinations->count() > 0): ?>
-            <div class="col-md-4">
+            <div class="col-12 col-md-6 col-lg-4">
                 <div class="card" style="background: white; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border-left: 4px solid #dc2626;">
                     <div class="card-header" style="background: #fef2f2; border-bottom: 2px solid #fecaca; padding: 15px;">
                         <h6 class="mb-0" style="font-weight: 700; color: #991b1b; font-size: 0.9rem;">
@@ -127,7 +127,7 @@
 
         <!-- Pending Payments -->
         <?php if($pendingPayments->count() > 0): ?>
-            <div class="col-md-4">
+            <div class="col-12 col-md-6 col-lg-4">
                 <div class="card" style="background: white; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border-left: 4px solid #f59e0b;">
                     <div class="card-header" style="background: #fef3c7; border-bottom: 2px solid #fed7aa; padding: 15px;">
                         <h6 class="mb-0" style="font-weight: 700; color: #b45309; font-size: 0.9rem;">
@@ -155,7 +155,7 @@
     <!-- Recent Data Tables Row -->
     <div class="row mb-4">
         <!-- Recent Appointments -->
-        <div class="col-md-6">
+        <div class="col-12 col-md-6">
             <div class="card" style="background: white; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
                 <div class="card-header" style="background: white; border-bottom: 2px solid #f1f5f9; padding: 20px;">
                     <h6 class="mb-0" style="font-weight: 700;">Recent Appointments</h6>
@@ -195,7 +195,7 @@
         </div>
 
         <!-- Recent Payments -->
-        <div class="col-md-6">
+        <div class="col-12 col-md-6">
             <div class="card" style="background: white; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
                 <div class="card-header" style="background: white; border-bottom: 2px solid #f1f5f9; padding: 20px;">
                     <h6 class="mb-0" style="font-weight: 700;">Recent Payments</h6>
@@ -238,7 +238,7 @@
     <!-- New Registrations & Recent Activities -->
     <div class="row mb-4">
         <!-- New Children Registrations -->
-        <div class="col-md-6">
+        <div class="col-12 col-md-6">
             <div class="card" style="background: white; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
                 <div class="card-header" style="background: white; border-bottom: 2px solid #f1f5f9; padding: 20px;">
                     <h6 class="mb-0" style="font-weight: 700;">New Children Registrations</h6>
@@ -262,7 +262,7 @@
         </div>
 
         <!-- Recent Activities -->
-        <div class="col-md-6">
+        <div class="col-12 col-md-6">
             <div class="card" style="background: white; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
                 <div class="card-header" style="background: white; border-bottom: 2px solid #f1f5f9; padding: 20px;">
                     <h6 class="mb-0" style="font-weight: 700;">Recent System Updates</h6>
