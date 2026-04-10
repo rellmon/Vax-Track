@@ -7,6 +7,7 @@ use App\Models\Vaccine;
 use App\Models\VaccineRecord;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VaccineInventoryController extends Controller
 {
@@ -64,7 +65,11 @@ class VaccineInventoryController extends Controller
             ->get();
 
         // Stock trend (last 30 days)
-        $stockTrend = VaccineRecord::selectRaw("strftime('%Y-%m-%d', created_at) as date, COUNT(*) as count")
+        $dateFormat = DB::connection()->getDriverName() === 'mysql' 
+            ? "DATE_FORMAT(created_at, '%Y-%m-%d')" 
+            : "strftime('%Y-%m-%d', created_at)";
+        
+        $stockTrend = VaccineRecord::selectRaw("$dateFormat as date, COUNT(*) as count")
             ->where('created_at', '>=', now()->subDays(30))
             ->groupBy('date')
             ->orderBy('date')

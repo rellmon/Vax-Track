@@ -8,6 +8,7 @@ use App\Models\Schedule;
 use App\Models\Vaccine;
 use App\Models\VaccineRecord;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class FinancialController extends Controller
@@ -47,7 +48,11 @@ class FinancialController extends Controller
             ->get();
 
         // Daily revenue breakdown
-        $dailyRevenue = Payment::selectRaw("strftime('%Y-%m-%d', payment_date) as date, COUNT(*) as count, SUM(amount) as revenue")
+        $dateFormat = DB::connection()->getDriverName() === 'mysql' 
+            ? "DATE_FORMAT(payment_date, '%Y-%m-%d')" 
+            : "strftime('%Y-%m-%d', payment_date)";
+        
+        $dailyRevenue = Payment::selectRaw("$dateFormat as date, COUNT(*) as count, SUM(amount) as revenue")
             ->where('status', 'Paid')
             ->whereBetween('payment_date', [$from, $to])
             ->groupBy('date')

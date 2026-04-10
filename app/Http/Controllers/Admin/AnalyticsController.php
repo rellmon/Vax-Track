@@ -9,6 +9,7 @@ use App\Models\Vaccine;
 use App\Models\Child;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AnalyticsController
 {
@@ -41,9 +42,13 @@ class AnalyticsController
      */
     private function getRevenueChartData($from, $to)
     {
+        $dateFormat = DB::connection()->getDriverName() === 'mysql' 
+            ? "DATE_FORMAT(payment_date, '%Y-%m-%d')" 
+            : "strftime('%Y-%m-%d', payment_date)";
+        
         $payments = Payment::whereBetween('payment_date', [$from, $to])
             ->where('status', 'Paid')
-            ->selectRaw("strftime('%Y-%m-%d', payment_date) as date, SUM(amount) as revenue")
+            ->selectRaw("$dateFormat as date, SUM(amount) as revenue")
             ->groupBy('date')
             ->orderBy('date')
             ->get();
@@ -78,8 +83,12 @@ class AnalyticsController
      */
     private function getAppointmentTrends($from, $to)
     {
+        $dateFormat = DB::connection()->getDriverName() === 'mysql' 
+            ? "DATE_FORMAT(appointment_date, '%Y-%m-%d')" 
+            : "strftime('%Y-%m-%d', appointment_date)";
+        
         $appointments = Schedule::whereBetween('appointment_date', [$from, $to])
-            ->selectRaw("strftime('%Y-%m-%d', appointment_date) as date, status, COUNT(*) as count")
+            ->selectRaw("$dateFormat as date, status, COUNT(*) as count")
             ->groupBy('date', 'status')
             ->orderBy('date')
             ->get();
