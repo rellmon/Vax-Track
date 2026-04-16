@@ -32,7 +32,9 @@ Railway automatically injects these when you link the MySQL service:
 
 The app will read these injected variables directly (no .env file needed).
 
-### Optional Email Configuration (if sending emails):
+### Email Configuration (REQUIRED for Password Reset OTP):
+
+⚠️ **IMPORTANT**: Password reset feature requires working email. Add these variables:
 
 ```
 MAIL_MAILER=smtp
@@ -40,7 +42,16 @@ MAIL_HOST=smtp.gmail.com
 MAIL_PORT=587
 MAIL_USERNAME=your-email@gmail.com
 MAIL_PASSWORD=your-app-password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="noreply@vacctrack.ph"
+MAIL_FROM_NAME="VaccTrack"
 ```
+
+**For Gmail users:**
+- Use your Gmail address for `MAIL_USERNAME`
+- For `MAIL_PASSWORD`, generate an [App Password](https://myaccount.google.com/apppasswords) (enable 2FA first)
+- Do NOT use your regular Gmail password
+- Do NOT use quotes around values (Railway handles this automatically)
 
 ## Why We Delete .env
 
@@ -54,3 +65,11 @@ MAIL_PASSWORD=your-app-password
 - Changed `runImage` from `php:8.3-fpm` to `php:8.3-cli` (FPM cannot run php artisan serve)
 - Changed start command from `&` (parallel) to `&&` (sequential)
 - Build phase now correctly: delete .env → run config:cache → cache real environment values
+
+## Latest Changes (2026-04-17) - Email Configuration Fix
+
+- **Added**: `config/mail.php` configuration file (was missing!)
+- **Why**: Without this file, Laravel cannot send emails on Railway
+- **Impact**: Password reset OTP emails now work when MAIL_* variables are set
+- **Action**: Make sure to set all Email Configuration variables above in Railway's dashboard
+- **Test**: Try password reset feature after setting mail variables and redeploying
