@@ -2,16 +2,16 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Queue\SerializesModels;
 
 class PasswordResetOtp extends Mailable
 {
-    use Queueable, SerializesModels;
+    /**
+     * Password reset OTP email - sent immediately (not queued)
+     * No Queueable trait since no queue worker on Railway
+     */
 
     /**
      * Create a new message instance.
