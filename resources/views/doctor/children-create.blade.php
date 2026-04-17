@@ -6,6 +6,24 @@
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     Back to Children
   </a>
+
+  <!-- Error Alert -->
+  @if($errors->any())
+  <div style="background:#fee2e2;border:1px solid #fca5a5;border-radius:8px;padding:16px;margin-bottom:20px;color:#991b1b;">
+    <div style="display:flex;align-items:flex-start;gap:12px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <div>
+        <strong style="font-size:15px;">❌ Registration Error</strong>
+        <ul style="margin:10px 0 0;padding-left:20px;font-size:14px;">
+          @foreach($errors->all() as $error)
+            <li style="margin:6px 0;">{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    </div>
+  </div>
+  @endif
+
   <form action="{{ route('doctor.children.store') }}" method="POST">
     @csrf
     <!-- Child Info -->
@@ -55,16 +73,26 @@
       <div class="card-body">
         <div class="section-hint">A parent account will be created. They can log in to the Parent Portal.</div>
         <div class="form-row">
-          <div class="form-group"><label>Parent First Name</label><input type="text" name="parent_first_name" class="form-control" pattern="[a-zA-Z\s]+" title="Only letters and spaces allowed" maxlength="50"></div>
-          <div class="form-group"><label>Parent Last Name</label><input type="text" name="parent_last_name" class="form-control" pattern="[a-zA-Z\s]+" title="Only letters and spaces allowed" maxlength="50"></div>
+          <div class="form-group"><label>Parent First Name</label><input type="text" name="parent_first_name" class="form-control" pattern="[a-zA-Z\s]+" title="Only letters and spaces allowed" maxlength="50" value="{{ old('parent_first_name') }}"></div>
+          <div class="form-group"><label>Parent Last Name</label><input type="text" name="parent_last_name" class="form-control" pattern="[a-zA-Z\s]+" title="Only letters and spaces allowed" maxlength="50" value="{{ old('parent_last_name') }}"></div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>Phone Number</label><input type="tel" name="parent_phone" class="form-control" placeholder="09XXXXXXXXX" inputmode="numeric" pattern="[0-9\s\-\+\(\)]{7,}" title="Enter only numbers, spaces, dashes, plus, or parentheses"></div>
-          <div class="form-group"><label>Email</label><input type="email" name="parent_email" class="form-control" required></div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" name="parent_phone" class="form-control" placeholder="09XXXXXXXXX" inputmode="numeric" pattern="[0-9\s\-\+\(\)]{7,}" title="Enter only numbers, spaces, dashes, plus, or parentheses" value="{{ old('parent_phone') }}"></div>
+          <div class="form-group">
+            <label>Email @if($errors->has('parent_email')) <span style="color:#dc2626;">*</span>@endif</label>
+            <input type="email" name="parent_email" class="form-control @if($errors->has('parent_email')) has-error @endif" value="{{ old('parent_email') }}" style="@if($errors->has('parent_email')) border-color:#dc2626;background:#fef2f2; @endif">
+            @if($errors->has('parent_email')) <small style="color:#dc2626;display:block;margin-top:4px;">⚠️ {{ $errors->first('parent_email') }}</small> @endif
+          </div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>Portal Username</label><input type="text" name="parent_username" class="form-control" maxlength="50"></div>
-          <div class="form-group"><label>Portal Password</label><input type="password" name="parent_password" class="form-control" placeholder="Set login password" minlength="6"></div>
+          <div class="form-group">
+            <label>Portal Username @if($errors->has('parent_username')) <span style="color:#dc2626;">*</span>@endif</label>
+            <input type="text" name="parent_username" class="form-control @if($errors->has('parent_username')) has-error @endif" maxlength="50" value="{{ old('parent_username') }}" style="@if($errors->has('parent_username')) border-color:#dc2626;background:#fef2f2; @endif" placeholder="Must be unique">
+            @if($errors->has('parent_username')) <small style="color:#dc2626;display:block;margin-top:4px;">⚠️ {{ $errors->first('parent_username') }}</small> @endif
+          </div>
+          <div class="form-group"><label>Portal Password @if($errors->has('parent_password')) <span style="color:#dc2626;">*</span>@endif</label><input type="password" name="parent_password" class="form-control @if($errors->has('parent_password')) has-error @endif" placeholder="Set login password" minlength="6" value="{{ old('parent_password') }}" style="@if($errors->has('parent_password')) border-color:#dc2626;background:#fef2f2; @endif">
+            @if($errors->has('parent_password')) <small style="color:#dc2626;display:block;margin-top:4px;">⚠️ {{ $errors->first('parent_password') }}</small> @endif
+          </div>
         </div>
       </div>
     </div>
