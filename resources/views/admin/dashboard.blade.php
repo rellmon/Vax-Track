@@ -307,26 +307,6 @@
                         <i class="bi bi-clock-history"></i> Audit Logs
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="{{ route('admin.email-notifications.index') }}" class="btn btn-outline-primary w-100" style="border-radius: 6px;">
-                        <i class="bi bi-envelope"></i> Email Templates
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="{{ route('admin.sms-templates.index') }}" class="btn btn-outline-primary w-100" style="border-radius: 6px;">
-                        <i class="bi bi-chat-dots"></i> SMS Templates
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="{{ route('admin.scheduled-reports.index') }}" class="btn btn-outline-primary w-100" style="border-radius: 6px;">
-                        <i class="bi bi-calendar-check"></i> Scheduled Reports
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="{{ route('admin.vaccination-coverage.dashboard') }}" class="btn btn-outline-primary w-100" style="border-radius: 6px;">
-                        <i class="bi bi-hospital"></i> Vaccination Coverage
-                    </a>
-                </div>
             </div>
         </div>
     </div>
