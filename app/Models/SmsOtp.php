@@ -64,6 +64,8 @@ class SmsOtp extends Model
                 'mailer' => config('mail.default'),
                 'smtp_host' => config('mail.mailers.smtp.host'),
                 'smtp_port' => config('mail.mailers.smtp.port'),
+                'smtp_encryption' => config('mail.mailers.smtp.encryption'),
+                'from_address' => config('mail.from.address'),
             ]);
             
             // Send directly without queue
@@ -79,12 +81,15 @@ class SmsOtp extends Model
                 'user_type' => $userType,
                 'user_id' => $userId,
             ]);
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('❌ Failed to send password reset OTP email (sync)', [
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('❌ Password reset OTP email FAILED (sync)', [
                 'email' => $email,
                 'error' => $e->getMessage(),
-                'exception' => (string)$e,
-                'otp_code' => $otpCode,
+                'exception_class' => get_class($e),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
             ]);
             // Don't rethrow - let the OTP still be created even if email fails
         }
