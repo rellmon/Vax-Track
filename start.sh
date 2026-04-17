@@ -7,9 +7,11 @@ php artisan migrate --force --no-interaction
 
 # Determine which service is running based on environment
 if [ "$PROCESS_TYPE" = "worker" ] || [ "$RAILWAY_SERVICE_NAME" = "worker" ] || [ "$1" = "worker" ]; then
-    # Worker process
-    echo "🔄 Starting Queue Worker..."
-    exec php artisan queue:work database --timeout=60 --tries=3
+    # Worker process with verbose logging and increased timeout
+    echo "🔄 Starting Queue Worker with verbose logging..."
+    echo "Mail driver: $(php -r 'echo getenv("MAIL_MAILER");')"
+    echo "Mail host: $(php -r 'echo getenv("MAIL_HOST");')"
+    exec php artisan queue:work database --timeout=120 --tries=3 --verbose
 else
     # Web process (default)
     echo "🚀 Starting Web Server..."
