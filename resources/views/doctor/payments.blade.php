@@ -132,8 +132,6 @@
             <label>Payment Method</label>
             <select name="method" class="form-control">
               <option>Cash</option>
-              <option>Check</option>
-              <option>Online Transfer</option>
             </select>
           </div>
         </div>
