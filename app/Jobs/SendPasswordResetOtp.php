@@ -39,6 +39,8 @@ class SendPasswordResetOtp implements ShouldQueue
                 'email' => $this->email,
                 'user_type' => $this->userType,
                 'user_id' => $this->userId,
+                'mail_driver' => config('mail.default'),
+                'mail_host' => config('mail.mailers.smtp.host'),
             ]);
 
             Mail::to($this->email)->send(new PasswordResetOtp(
@@ -53,12 +55,20 @@ class SendPasswordResetOtp implements ShouldQueue
                 'user_type' => $this->userType,
                 'user_id' => $this->userId,
             ]);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             \Illuminate\Support\Facades\Log::error('❌ Password reset OTP email FAILED in job', [
                 'email' => $this->email,
                 'error' => $e->getMessage(),
-                'exception' => (string)$e,
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'code' => $e->getCode(),
+                'trace' => $e->getTraceAsString(),
                 'user_type' => $this->userType,
+                'mail_config' => [
+                    'driver' => config('mail.default'),
+                    'host' => config('mail.mailers.smtp.host'),
+                    'port' => config('mail.mailers.smtp.port'),
+                ],
             ]);
 
             // Rethrow to trigger job retry
