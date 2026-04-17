@@ -70,13 +70,14 @@ RUN chown -R www-data:www-data /app
 
 EXPOSE 8080
 
+# Copy startup and healthcheck scripts
+COPY start.sh /app/start.sh
+COPY healthcheck.sh /app/healthcheck.sh
+RUN chmod +x /app/start.sh /app/healthcheck.sh
+
 # Health check for Docker - waits 5 seconds before first check to allow app startup
 HEALTHCHECK --interval=10s --timeout=5s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8080/api/health || exit 1
-
-# Copy startup script
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
+    CMD /app/healthcheck.sh
 
 # Start: clear config, migrate then start server or worker
 CMD ["/app/start.sh"]
