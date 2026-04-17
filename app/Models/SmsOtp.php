@@ -57,40 +57,36 @@ class SmsOtp extends Model
             $userName = $parent?->name ?? 'Parent';
         }
 
-        // Send password reset email via job (asynchronous)
+        // Send password reset email synchronously (not queued)
         try {
-            // Log OTP creation for debugging
-            \Illuminate\Support\Facades\Log::info('Dispatching SendPasswordResetOtp job', [
+            \Illuminate\Support\Facades\Log::info('Sending password reset email directly (sync)', [
                 'email' => $email,
                 'mailer' => config('mail.default'),
                 'smtp_host' => config('mail.mailers.smtp.host'),
                 'smtp_port' => config('mail.mailers.smtp.port'),
-                'from_address' => config('mail.from.address'),
             ]);
             
-            // Dispatch the email job to process asynchronously
-            SendPasswordResetOtp::dispatch(
-                email: $email,
+            // Send directly without queue
+            Mail::to($email)->send(new PasswordResetOtp(
                 userType: $userType,
                 userName: $userName,
                 otpCode: $otpCode,
-                expiryMinutes: 10,
-                userId: $userId
-            )->onConnection('database');
+                expiryMinutes: 10
+            ));
             
-            \Illuminate\Support\Facades\Log::info('✅ SendPasswordResetOtp job dispatched successfully', [
+            \Illuminate\Support\Facades\Log::info('✅ Password reset OTP email sent successfully (sync)', [
                 'email' => $email,
                 'user_type' => $userType,
                 'user_id' => $userId,
             ]);
         } catch (\Exception $e) {
-            // Log job dispatch failure
-            \Illuminate\Support\Facades\Log::error('❌ Failed to dispatch SendPasswordResetOtp job', [
+            \Illuminate\Support\Facades\Log::error('❌ Failed to send password reset OTP email (sync)', [
                 'email' => $email,
                 'error' => $e->getMessage(),
                 'exception' => (string)$e,
                 'otp_code' => $otpCode,
             ]);
+            // Don't rethrow - let the OTP still be created even if email fails
         }
 
         return $smsOtp;

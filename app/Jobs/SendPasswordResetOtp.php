@@ -27,6 +27,9 @@ class SendPasswordResetOtp implements ShouldQueue
     ) {
         $this->queue = 'default';
         $this->onConnection('database');
+        $this->timeout = 300; // 5 minutes timeout for SMTP operations
+        $this->tries = 1; // Don't retry - fail immediately to save time
+        $this->backoff = 10; // If it does retry, wait 10 seconds between attempts
     }
 
     /**
