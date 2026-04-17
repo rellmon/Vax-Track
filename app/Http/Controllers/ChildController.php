@@ -41,6 +41,13 @@ class ChildController extends Controller
             'last_name'   => 'required|string|max:255',
             'dob'         => 'required|date',
             'gender'      => 'required|in:Male,Female',
+            'parent_first_name' => 'nullable|string|max:255',
+            'parent_last_name'  => 'nullable|string|max:255',
+            'parent_email'      => 'nullable|email|unique:parent_guardians,email',
+            'parent_username'   => 'nullable|unique:parent_guardians,username',
+            'parent_password'   => 'nullable|min:6',
+            'parent_phone'      => 'nullable|string|max:20',
+            'parent_address'    => 'nullable|string',
         ]);
 
         // Create parent
