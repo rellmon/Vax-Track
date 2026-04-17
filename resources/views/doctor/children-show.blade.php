@@ -155,14 +155,14 @@
           </div>
           <div class="form-group">
             <label>Clinic / Healthcare Facility</label>
-            <input type="text" name="clinic_name" class="form-control" placeholder="e.g., ABC Clinic, Health Center" maxlength="100">
+            <input type="text" name="clinic_name" class="form-control" placeholder="e.g., ABC Clinic, Health Center" maxlength="100" pattern="[a-zA-Z0-9\s,.\-]+" title="Only letters, numbers, and basic punctuation allowed">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label>Dose Given</label>
-            <input type="text" name="dose_given" class="form-control" placeholder="e.g., 0.5ml" maxlength="50">
+            <input type="text" name="dose_given" class="form-control" placeholder="e.g., 0.5ml" maxlength="50" pattern="[a-zA-Z0-9.\s\-]+" title="Only letters, numbers, dots, and hyphens allowed">
           </div>
           <div class="form-group">
             <label>Route</label>
@@ -180,11 +180,11 @@
         <div class="form-row">
           <div class="form-group">
             <label>Injection Site</label>
-            <input type="text" name="injection_site" class="form-control" placeholder="e.g., Right thigh" maxlength="100">
+            <input type="text" name="injection_site" class="form-control" placeholder="e.g., Right thigh" maxlength="100" pattern="[a-zA-Z0-9\s\-]+" title="Only letters, numbers, and hyphens allowed">
           </div>
           <div class="form-group">
             <label>Batch/Lot Number</label>
-            <input type="text" name="batch_number" class="form-control" placeholder="Optional" maxlength="100">
+            <input type="text" name="batch_number" class="form-control" placeholder="Optional" maxlength="100" pattern="[a-zA-Z0-9\-\.]+" title="Only letters, numbers, hyphens, and dots allowed">
           </div>
         </div>
 
@@ -195,7 +195,7 @@
           </div>
           <div class="form-group">
             <label>Administered By</label>
-            <input type="text" name="administered_by" class="form-control" placeholder="e.g., Dr. Name" maxlength="100">
+            <input type="text" name="administered_by" class="form-control" placeholder="e.g., Dr. Name" maxlength="100" pattern="[a-zA-Z\s.]+" title="Only letters, spaces, and dots allowed">
           </div>
         </div>
 

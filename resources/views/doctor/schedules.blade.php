@@ -147,7 +147,7 @@
         </div>
         <div class="form-group">
           <label>Dose Given</label>
-          <input type="text" name="dose_given" class="form-control" placeholder="e.g., 0.5ml" maxlength="50">
+          <input type="text" name="dose_given" class="form-control" placeholder="e.g., 0.5ml" maxlength="50" pattern="[a-zA-Z0-9.\s\-]+" title="Only letters, numbers, dots, and hyphens allowed">
         </div>
         <div class="form-row">
           <div class="form-group">
@@ -163,13 +163,13 @@
           </div>
           <div class="form-group">
             <label>Injection Site</label>
-            <input type="text" name="injection_site" class="form-control" placeholder="e.g., Right thigh" maxlength="100">
+            <input type="text" name="injection_site" class="form-control" placeholder="e.g., Right thigh" maxlength="100" pattern="[a-zA-Z0-9\s\-]+" title="Only letters, numbers, and hyphens allowed">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label>Batch/Lot Number</label>
-            <input type="text" name="batch_number" class="form-control" placeholder="Optional" maxlength="100">
+            <input type="text" name="batch_number" class="form-control" placeholder="Optional" maxlength="100" pattern="[a-zA-Z0-9\-\.]+" title="Only letters, numbers, hyphens, and dots allowed">
           </div>
           <div class="form-group">
             <label>Expiration Date</label>
@@ -187,7 +187,7 @@
         </div>
         <div class="form-group">
           <label>Notes</label>
-          <textarea name="notes" class="form-control" placeholder="Optional notes..." rows="2" maxlength="500"></textarea>
+          <textarea name="notes" class="form-control" placeholder="Optional notes..." rows="2" maxlength="500" pattern="[a-zA-Z\s0-9,.\-'\(\)]+" title="Only letters, numbers, and basic punctuation allowed"></textarea>
         </div>
         <div class="section-hint" style="display:flex;align-items:flex-start;gap:8px;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6.19 6.19l.94-.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>

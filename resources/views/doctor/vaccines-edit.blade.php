@@ -19,7 +19,7 @@
         <div class="form-row">
           <div class="form-group">
             <label>Vaccine Name</label>
-            <input type="text" name="name" class="form-control" value="{{ $vaccine->name }}" maxlength="100" required>
+            <input type="text" name="name" class="form-control" value="{{ $vaccine->name }}" pattern="[a-zA-Z\s]+" title="Only letters and spaces allowed" maxlength="100" required>
           </div>
           <div class="form-group">
             <label>Category / Type</label>
@@ -33,16 +33,16 @@
         <div class="form-row">
           <div class="form-group">
             <label>Stock Quantity</label>
-            <input type="number" name="stock" class="form-control" value="{{ $vaccine->stock }}" min="0" max="99999" required>
+            <input type="number" name="stock" class="form-control" value="{{ $vaccine->stock }}" inputmode="numeric" min="0" max="99999" required pattern="[0-9]+" onkeypress="return /[0-9]/.test(String.fromCharCode(event.which))">
           </div>
           <div class="form-group">
             <label>Price (₱)</label>
-            <input type="number" name="price" class="form-control" value="{{ $vaccine->price }}" min="0" step="0.01" max="999999.99" required>
+            <input type="number" name="price" class="form-control" value="{{ $vaccine->price }}" inputmode="decimal" min="0" step="0.01" max="999999.99" required pattern="[0-9]+(\.[0-9]{1,2})?" onkeypress="return /[0-9.]/.test(String.fromCharCode(event.which))">
           </div>
         </div>
         <div class="form-group">
           <label>Manufacturer</label>
-          <input type="text" name="manufacturer" class="form-control" value="{{ $vaccine->manufacturer }}" maxlength="100" required>
+          <input type="text" name="manufacturer" class="form-control" value="{{ $vaccine->manufacturer }}" pattern="[a-zA-Z\s]+" title="Only letters and spaces allowed" maxlength="100" required>
         </div>
         <div class="form-group">
           <label>Description</label>

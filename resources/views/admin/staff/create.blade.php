@@ -17,7 +17,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Full Name *</label>
-                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" pattern="[a-zA-Z\s]+" title="Only letters and spaces allowed" maxlength="100" required>
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -25,7 +25,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Username *</label>
-                            <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required>
+                            <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" pattern="[a-zA-Z0-9_]+" title="Only letters, numbers, and underscores allowed" maxlength="30" required>
                             @error('username')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

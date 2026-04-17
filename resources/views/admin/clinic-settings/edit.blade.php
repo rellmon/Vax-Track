@@ -41,7 +41,7 @@
       <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 20px;">
         <div>
           <label style="display: block; font-weight: 600; color: #2f3e46; margin-bottom: 8px; font-size: 0.95rem;">Clinic Name *</label>
-          <input type="text" name="clinic_name" value="{{ old('clinic_name', $settings->clinic_name ?? '') }}" required
+          <input type="text" name="clinic_name" value="{{ old('clinic_name', $settings->clinic_name ?? '') }}" required pattern="[a-zA-Z0-9\s,.\-]+" title="Only letters, numbers, and basic punctuation allowed"
                  style="width: 100%; padding: 12px; border: 1px solid rgba(202, 210, 197, 0.5); background: rgba(255, 255, 255, 0.7); border-radius: 8px; font-size: 0.95rem; color: #2f3e46;">
           @error('clinic_name')<span style="color: #dc2626; font-size: 0.875rem;">{{ $message }}</span>@enderror
         </div>
@@ -56,13 +56,13 @@
       <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 20px;">
         <div>
           <label style="display: block; font-weight: 600; color: #2f3e46; margin-bottom: 8px; font-size: 0.95rem;">Phone *</label>
-          <input type="tel" name="phone" value="{{ old('phone', $settings->phone ?? '') }}" required
+          <input type="tel" name="phone" value="{{ old('phone', $settings->phone ?? '') }}" required pattern="^(09[0-9]{9}|\\+639[0-9]{9})$" title="Enter valid Philippine phone number (09XXXXXXXXX or +639XXXXXXXXX)" maxlength="13"
                  style="width: 100%; padding: 12px; border: 1px solid rgba(202, 210, 197, 0.5); background: rgba(255, 255, 255, 0.7); border-radius: 8px; font-size: 0.95rem; color: #2f3e46;">
           @error('phone')<span style="color: #dc2626; font-size: 0.875rem;">{{ $message }}</span>@enderror
         </div>
         <div>
           <label style="display: block; font-weight: 600; color: #2f3e46; margin-bottom: 8px; font-size: 0.95rem;">Emergency Phone</label>
-          <input type="tel" name="emergency_phone" value="{{ old('emergency_phone', $settings->emergency_phone ?? '') }}"
+          <input type="tel" name="emergency_phone" value="{{ old('emergency_phone', $settings->emergency_phone ?? '') }}" pattern="^(09[0-9]{9}|\\+639[0-9]{9})$" title="Enter valid Philippine phone number (09XXXXXXXXX or +639XXXXXXXXX)" maxlength="13"
                  style="width: 100%; padding: 12px; border: 1px solid rgba(202, 210, 197, 0.5); background: rgba(255, 255, 255, 0.7); border-radius: 8px; font-size: 0.95rem; color: #2f3e46;">
           @error('emergency_phone')<span style="color: #dc2626; font-size: 0.875rem;">{{ $message }}</span>@enderror
         </div>
@@ -70,7 +70,7 @@
 
       <div>
         <label style="display: block; font-weight: 600; color: #2f3e46; margin-bottom: 8px; font-size: 0.95rem;">Address *</label>
-        <input type="text" name="address" value="{{ old('address', $settings->address ?? '') }}" required
+        <input type="text" name="address" value="{{ old('address', $settings->address ?? '') }}" required pattern="[a-zA-Z0-9\s,.\-]+" title="Only letters, numbers, and basic punctuation allowed"
                style="width: 100%; padding: 12px; border: 1px solid rgba(202, 210, 197, 0.5); background: rgba(255, 255, 255, 0.7); border-radius: 8px; font-size: 0.95rem; color: #2f3e46;">
         @error('address')<span style="color: #dc2626; font-size: 0.875rem;">{{ $message }}</span>@enderror
       </div>
@@ -83,19 +83,19 @@
       <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
         <div>
           <label style="display: block; font-weight: 600; color: #2f3e46; margin-bottom: 8px; font-size: 0.95rem;">City *</label>
-          <input type="text" name="city" value="{{ old('city', $settings->city ?? '') }}" required
+          <input type="text" name="city" value="{{ old('city', $settings->city ?? '') }}" required pattern="[a-zA-Z\s]+" title="Only letters and spaces allowed"
                  style="width: 100%; padding: 12px; border: 1px solid rgba(202, 210, 197, 0.5); background: rgba(255, 255, 255, 0.7); border-radius: 8px; font-size: 0.95rem; color: #2f3e46;">
           @error('city')<span style="color: #dc2626; font-size: 0.875rem;">{{ $message }}</span>@enderror
         </div>
         <div>
           <label style="display: block; font-weight: 600; color: #2f3e46; margin-bottom: 8px; font-size: 0.95rem;">Province *</label>
-          <input type="text" name="province" value="{{ old('province', $settings->province ?? '') }}" required
+          <input type="text" name="province" value="{{ old('province', $settings->province ?? '') }}" required pattern="[a-zA-Z\s]+" title="Only letters and spaces allowed"
                  style="width: 100%; padding: 12px; border: 1px solid rgba(202, 210, 197, 0.5); background: rgba(255, 255, 255, 0.7); border-radius: 8px; font-size: 0.95rem; color: #2f3e46;">
           @error('province')<span style="color: #dc2626; font-size: 0.875rem;">{{ $message }}</span>@enderror
         </div>
         <div>
           <label style="display: block; font-weight: 600; color: #2f3e46; margin-bottom: 8px; font-size: 0.95rem;">Postal Code *</label>
-          <input type="text" name="postal_code" value="{{ old('postal_code', $settings->postal_code ?? '') }}" required
+          <input type="text" name="postal_code" value="{{ old('postal_code', $settings->postal_code ?? '') }}" required pattern="[0-9]+" title="Only numbers allowed" maxlength="10"
                  style="width: 100%; padding: 12px; border: 1px solid rgba(202, 210, 197, 0.5); background: rgba(255, 255, 255, 0.7); border-radius: 8px; font-size: 0.95rem; color: #2f3e46;">
           @error('postal_code')<span style="color: #dc2626; font-size: 0.875rem;">{{ $message }}</span>@enderror
         </div>

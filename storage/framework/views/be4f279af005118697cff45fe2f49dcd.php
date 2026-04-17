@@ -55,7 +55,7 @@
               <?php $__currentLoopData = ['A+','A-','B+','B-','AB+','AB-','O+','O-']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><option><?php echo e($bt); ?></option><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </select>
           </div>
-          <div class="form-group"><label>Address</label><input type="text" name="address" class="form-control" maxlength="255"></div>
+          <div class="form-group"><label>Address</label><input type="text" name="address" class="form-control" maxlength="255" pattern="[a-zA-Z0-9\s,.\-]+" title="Only letters, numbers, and basic punctuation allowed"></div>
         </div>
         <div class="form-group"><label>Notes / Allergies</label><textarea name="notes" class="form-control" placeholder="Any known allergies or special notes..." rows="2" maxlength="500"></textarea></div>
       </div>
@@ -76,7 +76,7 @@
           <div class="form-group"><label>Parent Last Name</label><input type="text" name="parent_last_name" class="form-control" pattern="[a-zA-Z\s]+" title="Only letters and spaces allowed" maxlength="50" value="<?php echo e(old('parent_last_name')); ?>"></div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>Phone Number</label><input type="tel" name="parent_phone" class="form-control" placeholder="09XXXXXXXXX" inputmode="numeric" pattern="[0-9\s\-\+\(\)]{7,}" title="Enter only numbers, spaces, dashes, plus, or parentheses" value="<?php echo e(old('parent_phone')); ?>"></div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" name="parent_phone" class="form-control" placeholder="09XXXXXXXXX" inputmode="numeric" pattern="^(09[0-9]{9}|\\+639[0-9]{9})$" title="Enter valid Philippine phone number (09XXXXXXXXX or +639XXXXXXXXX)" maxlength="13" value="<?php echo e(old('parent_phone')); ?>"></div>
           <div class="form-group">
             <label>Email <?php if($errors->has('parent_email')): ?> <span style="color:#dc2626;">*</span><?php endif; ?></label>
             <input type="email" name="parent_email" class="form-control <?php if($errors->has('parent_email')): ?> has-error <?php endif; ?>" value="<?php echo e(old('parent_email')); ?>" style="<?php if($errors->has('parent_email')): ?> border-color:#dc2626;background:#fef2f2; <?php endif; ?>">
@@ -86,10 +86,10 @@
         <div class="form-row">
           <div class="form-group">
             <label>Portal Username <?php if($errors->has('parent_username')): ?> <span style="color:#dc2626;">*</span><?php endif; ?></label>
-            <input type="text" name="parent_username" class="form-control <?php if($errors->has('parent_username')): ?> has-error <?php endif; ?>" maxlength="50" value="<?php echo e(old('parent_username')); ?>" style="<?php if($errors->has('parent_username')): ?> border-color:#dc2626;background:#fef2f2; <?php endif; ?>" placeholder="Must be unique">
+            <input type="text" name="parent_username" class="form-control <?php if($errors->has('parent_username')): ?> has-error <?php endif; ?>" maxlength="30" value="<?php echo e(old('parent_username')); ?>" style="<?php if($errors->has('parent_username')): ?> border-color:#dc2626;background:#fef2f2; <?php endif; ?>" placeholder="Must be unique" pattern="[a-zA-Z0-9_]+" title="Only letters, numbers, and underscores allowed">
             <?php if($errors->has('parent_username')): ?> <small style="color:#dc2626;display:block;margin-top:4px;">⚠️ <?php echo e($errors->first('parent_username')); ?></small> <?php endif; ?>
           </div>
-          <div class="form-group"><label>Portal Password <?php if($errors->has('parent_password')): ?> <span style="color:#dc2626;">*</span><?php endif; ?></label><input type="password" name="parent_password" class="form-control <?php if($errors->has('parent_password')): ?> has-error <?php endif; ?>" placeholder="Set login password" minlength="6" value="<?php echo e(old('parent_password')); ?>" style="<?php if($errors->has('parent_password')): ?> border-color:#dc2626;background:#fef2f2; <?php endif; ?>">
+          <div class="form-group"><label>Portal Password <?php if($errors->has('parent_password')): ?> <span style="color:#dc2626;">*</span><?php endif; ?></label><input type="password" name="parent_password" class="form-control <?php if($errors->has('parent_password')): ?> has-error <?php endif; ?>" placeholder="Set login password" minlength="6" maxlength="128" value="<?php echo e(old('parent_password')); ?>" style="<?php if($errors->has('parent_password')): ?> border-color:#dc2626;background:#fef2f2; <?php endif; ?>">
             <?php if($errors->has('parent_password')): ?> <small style="color:#dc2626;display:block;margin-top:4px;">⚠️ <?php echo e($errors->first('parent_password')); ?></small> <?php endif; ?>
           </div>
         </div>
@@ -120,7 +120,7 @@
           <div class="form-group"><label>Vaccination Time</label><input type="time" name="vaccine_time" class="form-control"></div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>Dose Given</label><input type="text" name="dose_given" class="form-control" placeholder="e.g., 0.5ml" maxlength="50"></div>
+          <div class="form-group"><label>Dose Given</label><input type="text" name="dose_given" class="form-control" placeholder="e.g., 0.5ml" maxlength="50" pattern="[a-zA-Z0-9.\s\-]+" title="Only letters, numbers, dots, and hyphens allowed"></div>
           <div class="form-group"><label>Route</label>
             <select name="vaccine_route" class="form-control">
               <option value="">Select Route</option>
@@ -133,8 +133,8 @@
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>Injection Site</label><input type="text" name="injection_site" class="form-control" placeholder="e.g., Right thigh" maxlength="100"></div>
-          <div class="form-group"><label>Batch/Lot Number</label><input type="text" name="batch_number" class="form-control" placeholder="Optional" maxlength="100"></div>
+          <div class="form-group"><label>Injection Site</label><input type="text" name="injection_site" class="form-control" placeholder="e.g., Right thigh" maxlength="100" pattern="[a-zA-Z0-9\s\-]+" title="Only letters, numbers, and hyphens allowed"></div>
+          <div class="form-group"><label>Batch/Lot Number</label><input type="text" name="batch_number" class="form-control" placeholder="Optional" maxlength="100" pattern="[a-zA-Z0-9\-\.]+" title="Only letters, numbers, hyphens, and dots allowed"></div>
         </div>
         <div class="form-row">
           <div class="form-group"><label>Expiration Date</label><input type="date" name="vaccine_expiration" class="form-control"></div>
@@ -147,7 +147,7 @@
             </select>
           </div>
         </div>
-        <div class="form-group"><label>Notes</label><textarea name="vaccine_notes" class="form-control" placeholder="Optional notes about the vaccination..." rows="2" maxlength="500"></textarea></div>
+        <div class="form-group"><label>Notes</label><textarea name="vaccine_notes" class="form-control" placeholder="Optional notes about the vaccination..." rows="2" maxlength="500" pattern="[a-zA-Z\s0-9,.\-'\(\)]+" title="Only letters, numbers, and basic punctuation allowed"></textarea></div>
       </div>
     </div>
 

@@ -126,7 +126,7 @@
         <div class="form-row">
           <div class="form-group">
             <label>Amount (₱)</label>
-            <input type="number" name="amount" id="pay-amount" class="form-control" placeholder="0.00" step="0.01" min="0" max="999999.99" required>
+            <input type="number" name="amount" id="pay-amount" class="form-control" placeholder="0.00" inputmode="decimal" step="0.01" min="0" max="999999.99" required pattern="[0-9]+(\.[0-9]{1,2})?" onkeypress="return /[0-9.]/.test(String.fromCharCode(event.which))">
           </div>
           <div class="form-group">
             <label>Payment Method</label>
@@ -148,7 +148,7 @@
         </div>
         <div class="form-group">
           <label>Notes</label>
-          <textarea name="notes" class="form-control" placeholder="Optional notes..." rows="2" maxlength="500"></textarea>
+          <textarea name="notes" class="form-control" placeholder="Optional notes..." rows="2" maxlength="500" pattern="[a-zA-Z\s0-9,.\-']+" title="Only letters, numbers, and basic punctuation allowed"></textarea>
         </div>
       </div>
       <div class="modal-footer">

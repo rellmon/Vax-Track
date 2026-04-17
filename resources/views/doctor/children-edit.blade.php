@@ -17,8 +17,8 @@
       <form action="{{ route('doctor.children.update', $child) }}" method="POST">
         @csrf @method('PUT')
         <div class="form-row">
-          <div class="form-group"><label>First Name</label><input type="text" name="first_name" class="form-control" value="{{ $child->first_name }}" maxlength="50" required></div>
-          <div class="form-group"><label>Last Name</label><input type="text" name="last_name" class="form-control" value="{{ $child->last_name }}" maxlength="50" required></div>
+          <div class="form-group"><label>First Name</label><input type="text" name="first_name" class="form-control" value="{{ $child->first_name }}" maxlength="50" pattern="[a-zA-Z\s]+" title="Only letters and spaces allowed" required></div>
+          <div class="form-group"><label>Last Name</label><input type="text" name="last_name" class="form-control" value="{{ $child->last_name }}" maxlength="50" pattern="[a-zA-Z\s]+" title="Only letters and spaces allowed" required></div>
         </div>
         <div class="form-row">
           <div class="form-group"><label>Date of Birth</label><input type="date" name="dob" class="form-control" value="{{ $child->dob }}" required></div>
@@ -39,7 +39,7 @@
               @endforeach
             </select>
           </div>
-          <div class="form-group"><label>Address</label><input type="text" name="address" class="form-control" value="{{ $child->address }}" maxlength="255"></div>
+          <div class="form-group"><label>Address</label><input type="text" name="address" class="form-control" value="{{ $child->address }}" maxlength="255" pattern="[a-zA-Z0-9\s,.\-]+" title="Only letters, numbers, and basic punctuation allowed"></div>
         </div>
         <div class="form-group"><label>Notes / Allergies</label><textarea name="notes" class="form-control" rows="3" maxlength="500">{{ $child->notes }}</textarea></div>
         <div class="flex gap-2 mt-4">
