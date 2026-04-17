@@ -4,6 +4,13 @@ Route::get('/api/health', function () {
     return response()->json(['status' => 'ok']);
 });
 
+// Diagnostic Routes (for troubleshooting)
+Route::prefix('/diagnostic')->group(function () {
+    Route::get('/mail-config', [DiagnosticController::class, 'testMail']);
+    Route::get('/smtp-connection', [DiagnosticController::class, 'testSmtpConnection']);
+    Route::get('/test-email', [DiagnosticController::class, 'sendTestEmail']);
+});
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\VaccineController;
@@ -13,6 +20,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\ClinicSettingController;
+use App\Http\Controllers\DiagnosticController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AuditLogController;
 use App\Http\Controllers\Admin\FinancialController;
