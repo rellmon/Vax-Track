@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PasswordResetOtp;
+use App\Jobs\SendPasswordResetOtp;
 
 class SmsOtp extends Model
 {
@@ -56,10 +57,10 @@ class SmsOtp extends Model
             $userName = $parent?->name ?? 'Parent';
         }
 
-        // Send password reset email
+        // Send password reset email via job (asynchronous)
         try {
-            // Log mail configuration for debugging
-            \Illuminate\Support\Facades\Log::info('Attempting to send password reset email', [
+            // Log OTP creation for debugging
+            \Illuminate\Support\Facades\Log::info('Dispatching SendPasswordResetOtp job', [
                 'email' => $email,
                 'mailer' => config('mail.default'),
                 'smtp_host' => config('mail.mailers.smtp.host'),
@@ -67,33 +68,28 @@ class SmsOtp extends Model
                 'from_address' => config('mail.from.address'),
             ]);
             
-            Mail::to($email)->send(new PasswordResetOtp(
+            // Dispatch the email job to process asynchronously
+            SendPasswordResetOtp::dispatch(
+                email: $email,
                 userType: $userType,
                 userName: $userName,
                 otpCode: $otpCode,
-                expiryMinutes: 10
-            ));
+                expiryMinutes: 10,
+                userId: $userId
+            )->onConnection('database');
             
-            \Illuminate\Support\Facades\Log::info('✅ Password reset OTP email sent successfully', [
+            \Illuminate\Support\Facades\Log::info('✅ SendPasswordResetOtp job dispatched successfully', [
                 'email' => $email,
                 'user_type' => $userType,
                 'user_id' => $userId,
-                'expires_at' => Carbon::now()->addMinutes(10),
             ]);
         } catch (\Exception $e) {
-            // Log email send failure with full stack trace
-            \Illuminate\Support\Facades\Log::error('❌ Password reset OTP email FAILED', [
+            // Log job dispatch failure
+            \Illuminate\Support\Facades\Log::error('❌ Failed to dispatch SendPasswordResetOtp job', [
                 'email' => $email,
                 'error' => $e->getMessage(),
                 'exception' => (string)$e,
                 'otp_code' => $otpCode,
-                'mail_config' => [
-                    'mailer' => config('mail.default'),
-                    'host' => config('mail.mailers.smtp.host'),
-                    'port' => config('mail.mailers.smtp.port'),
-                    'username' => config('mail.mailers.smtp.username'),
-                    'from' => config('mail.from.address'),
-                ]
             ]);
         }
 
