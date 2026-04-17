@@ -449,17 +449,6 @@
                 </ul>
             </div>
 
-            <div class="nav-section">
-                <div class="nav-section-title">Insights & Reports</div>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link <?php if(request()->routeIs('admin.vaccination-coverage*')): ?> active <?php endif; ?>" href="<?php echo e(route('admin.vaccination-coverage.dashboard')); ?>">
-                            <i class="bi bi-hospital"></i> Vaccination Coverage
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
             <div class="nav-section" style="margin-top: auto;">
                 <ul class="nav flex-column">
                     <li class="nav-item">
