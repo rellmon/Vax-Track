@@ -58,6 +58,15 @@ class SmsOtp extends Model
 
         // Send password reset email
         try {
+            // Log mail configuration for debugging
+            \Illuminate\Support\Facades\Log::info('Attempting to send password reset email', [
+                'email' => $email,
+                'mailer' => config('mail.default'),
+                'smtp_host' => config('mail.mailers.smtp.host'),
+                'smtp_port' => config('mail.mailers.smtp.port'),
+                'from_address' => config('mail.from.address'),
+            ]);
+            
             Mail::to($email)->send(new PasswordResetOtp(
                 userType: $userType,
                 userName: $userName,
@@ -65,18 +74,26 @@ class SmsOtp extends Model
                 expiryMinutes: 10
             ));
             
-            \Illuminate\Support\Facades\Log::info('Password reset OTP email sent', [
+            \Illuminate\Support\Facades\Log::info('✅ Password reset OTP email sent successfully', [
                 'email' => $email,
                 'user_type' => $userType,
                 'user_id' => $userId,
                 'expires_at' => Carbon::now()->addMinutes(10),
             ]);
         } catch (\Exception $e) {
-            // Log email send failure
-            \Illuminate\Support\Facades\Log::error('Password reset OTP email failed', [
+            // Log email send failure with full stack trace
+            \Illuminate\Support\Facades\Log::error('❌ Password reset OTP email FAILED', [
                 'email' => $email,
                 'error' => $e->getMessage(),
-                'otp_code' => $otpCode, // Log code as fallback
+                'exception' => (string)$e,
+                'otp_code' => $otpCode,
+                'mail_config' => [
+                    'mailer' => config('mail.default'),
+                    'host' => config('mail.mailers.smtp.host'),
+                    'port' => config('mail.mailers.smtp.port'),
+                    'username' => config('mail.mailers.smtp.username'),
+                    'from' => config('mail.from.address'),
+                ]
             ]);
         }
 
