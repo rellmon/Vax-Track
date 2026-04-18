@@ -6,7 +6,7 @@ echo "PHP Version: " . PHP_VERSION . "\n\n";
 $host = "smtp.gmail.com";
 $port = 587;
 $username = "rellmontezor@gmail.com";
-$password = "vnav kzbx emup lbfb";
+$password = "qqdl bpri pihl kxyp";
 $from_address = "noreply@vacctrack.ph";
 $encryption = "tls";
 
