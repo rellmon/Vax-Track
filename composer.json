@@ -6,7 +6,9 @@
         "php": "^8.3",
         "barryvdh/laravel-dompdf": "^3.1",
         "laravel/framework": "^11.0",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "symfony/mailer": "^7.4",
+        "symfony/mime": "^7.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

@@ -424,9 +424,6 @@ body::after {
         </span>
         <input type="password" name="password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
       </div>
-      <div style="font-size: 12px; margin-top: 8px; text-align: right;">
-        <a href="<?php echo e(route('auth.forgot-password')); ?>" style="color: var(--text3); text-decoration: none; transition: color .2s;" onmouseover="this.style.color='var(--forest)'" onmouseout="this.style.color='var(--text3)'">Forgot password?</a>
-      </div>
     </div>
 
     <button type="submit" class="btn-login">

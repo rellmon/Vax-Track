@@ -6,6 +6,7 @@ use App\Models\Child;
 use App\Models\Schedule;
 use App\Models\VaccineRecord;
 use App\Models\Payment;
+use App\Models\Vaccine;
 use Illuminate\Http\Request;
 
 class ParentController extends Controller
@@ -18,7 +19,8 @@ class ParentController extends Controller
     public function dashboard()
     {
         $children = $this->getChildren()->load(['vaccineRecords', 'schedules.vaccine']);
-        return view('parent.dashboard', compact('children'));
+        $vaccines = Vaccine::where('active', true)->orderBy('name')->get();
+        return view('parent.dashboard', compact('children', 'vaccines'));
     }
 
     public function schedules()
